@@ -4,7 +4,6 @@ const Video = require("../models/video");
 
 exports.get_videos = (req, res, next) => {
     Video.find()
-        .select("name video_url")
         .exec()
         .then(doc => {
             console.log(doc);
