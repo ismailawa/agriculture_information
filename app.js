@@ -3,49 +3,69 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose =  require('mongoose');
+var mongoose = require('mongoose');
 var app = express();
+// const multer = require('multer');
 
-mongoose.connect('mongodb://localhost:27017/agricdb', {useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/agricdb', { useUnifiedTopology: true, useNewUrlParser: true });
 
-app.use((req, res, next)=>{
-    res.header('Access-Control-Allow-Origin','*' );
-    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    if(req.method === 'OPTIONS'){
-      res.header('Acess-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-      return res.status(200).json({});
-    }
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    res.header('Acess-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+  }
 
-    next();
+  next();
 });
+
+// const fileStorage = multer.diskStorage({
+//   destination: (res, file, cb) => {
+//     cb(null, "images")
+//   },
+
+//   filename: (req, file, cb) => {
+//     cb(null, "/" + new Date().toISOString() + "-" + file.originalname)
+//   }
+
+// });
+
+// const fileFilter = (req, file, cb) => {
+//   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+//     cb(null, true);
+//   } else {
+//     cb(null, false);
+//   }
+// };
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./api/routes/users');
 var videosRouter = require('./api/routes/videos');
 
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+// app.use(multer({ storage: fileStorage }).single("iamge"))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', indexRouter);
 app.use('/api/videos', videosRouter);
 app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

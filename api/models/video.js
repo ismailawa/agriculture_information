@@ -1,4 +1,4 @@
-var mongoose =  require('mongoose');
+var mongoose = require('mongoose');
 
 var videoSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -7,6 +7,5 @@ var videoSchema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 
 });
-
 
 module.exports = mongoose.model('Video', videoSchema);

@@ -1,14 +1,35 @@
 var express = require("express");
 var router = express.Router();
+const multer = require('multer');
 
-const videosController =  require('../controllers/videos');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads/");
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "video/mp4" || file.mimetype === "image/jpg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({ storage: storage })
+
+const videosController = require('../controllers/videos');
 
 router
   .route("/")
   //This endpoint returns all the videos in the database
   .get(videosController.get_videos)
   //This endpoint add video to the database
-  .post(videosController.add_video);
+  .post(upload.single('video'), videosController.add_video);
 
 router
   .route("/:videoId")

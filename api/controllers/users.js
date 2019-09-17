@@ -4,6 +4,7 @@ const User = require("../models/user");
 
 exports.get_users = (req, res, next) => {
     User.find()
+        .select("userName email phone")
         .exec()
         .then((users) => {
             res.status(200).json(users);
