@@ -5,8 +5,8 @@ const Video = require("../models/video");
 
 exports.get_videos = (req, res, next) => {
     Video.find()
-        .select("name video_url user")
-        .populate("user", "userName email phone")
+        .select("title video_url user")
+        .populate("user", "userName email phone image_url")
         .exec()
         .then(doc => {
             console.log(doc);
@@ -22,7 +22,8 @@ exports.get_videos = (req, res, next) => {
 exports.add_video = (req, res, next) => {
     var video = new Video({
         _id: mongoose.Types.ObjectId(),
-        name: req.body.name,
+        title: req.body.title,
+        description: req.body.description,
         video_url: req.file.path,
         user: req.body.user
     });

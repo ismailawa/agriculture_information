@@ -39,10 +39,11 @@ app.use((req, res, next) => {
 //   }
 // };
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./api/routes/users');
-var videosRouter = require('./api/routes/videos');
-
+const indexRouter = require('./routes/index');
+const usersRouter = require('./api/routes/users');
+const videosRouter = require('./api/routes/videos');
+const shopsRouter = require('./api/routes/shops');
+const productsRouter = require('./api/routes/products');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,6 +59,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/', indexRouter);
 app.use('/api/videos', videosRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/shops', shopsRouter);
+app.use('/api/products', productsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

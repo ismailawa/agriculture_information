@@ -1,4 +1,3 @@
-var express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/user");
 
@@ -20,6 +19,7 @@ exports.add_user = (req, res, next) => {
         userName: req.body.userName,
         email: req.body.email,
         phone: req.body.phone,
+        image_url: req.file.path,
         password: req.body.password
     });
 
