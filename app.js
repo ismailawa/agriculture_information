@@ -20,30 +20,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// const fileStorage = multer.diskStorage({
-//   destination: (res, file, cb) => {
-//     cb(null, "images")
-//   },
-
-//   filename: (req, file, cb) => {
-//     cb(null, "/" + new Date().toISOString() + "-" + file.originalname)
-//   }
-
-// });
-
-// const fileFilter = (req, file, cb) => {
-//   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
-//     cb(null, true);
-//   } else {
-//     cb(null, false);
-//   }
-// };
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./api/routes/users');
 const videosRouter = require('./api/routes/videos');
 const shopsRouter = require('./api/routes/shops');
 const productsRouter = require('./api/routes/products');
+const categoriesRouter = require('./api/routes/categories');
+const subcategoriesRouter = require('./api/routes/subcategories');
+const classesRouter = require('./api/routes/classes');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,6 +46,9 @@ app.use('/api/videos', videosRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/shops', shopsRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/categories', categoriesRouter);
+app.use('/api/sub-categories', subcategoriesRouter);
+app.use('/api/classes', classesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
