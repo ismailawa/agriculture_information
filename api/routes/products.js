@@ -18,5 +18,7 @@ const controller = require("../controllers/products");
 router.route("/")
     .get(controller.get_products)
     .post(upload.single('image'), controller.add_product);
+router.route("/:categoryId")
+    .get(controller.get_products_by_category);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const classSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     tag: String,
-    subCategory: { type: mongoose.Schema.Types.ObjectId, ref: "SubCategory" }
+    subcategory: { type: mongoose.Schema.Types.ObjectId, ref: "Subcategory" }
 });
 
 module.exports = mongoose.model("Class", classSchema);

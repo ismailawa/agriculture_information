@@ -9,7 +9,8 @@ const productSchema = mongoose.Schema({
     available: { type: Boolean, default: true },
     prize: Number,
     video: { type: mongoose.Schema.Types.ObjectId, ref: "Video" },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    class: { type: mongoose.Schema.Types.ObjectId, ref: "Class" }
 
 });
 
